@@ -65,10 +65,10 @@ public class PlayerGrid : MonoBehaviour {
         if (LegoNum <= 0) return;
         if (Input.GetButtonDown("Jump"))
         {
-            LegoNum--;
             bool b = stageManager.IsBuildable(x, y);
             if (b)
             {
+                LegoNum--;
                 stageManager.Build(x, y);
             }
         }

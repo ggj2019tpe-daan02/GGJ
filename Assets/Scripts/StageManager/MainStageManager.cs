@@ -79,7 +79,7 @@ public class MainStageManager : MonoBehaviour {
 	void Update () {
         int[,] result = detective.GetGridID();
         // Debug.Log(result[playerGrid.x, playerGrid.y]);
-        /*if(testCooldown > 20)
+        if(testCooldown > 120)
         {
             testCooldown = 0;
             SpawnItem();
@@ -87,7 +87,9 @@ public class MainStageManager : MonoBehaviour {
         else
         {
             testCooldown++;
-        }*/
+        }
+
+        detective.CalculateStatus();
 	}
 
     void SetRandomBlock(int blockNum)
@@ -161,6 +163,7 @@ public class MainStageManager : MonoBehaviour {
         bool IsBuildable;
         if (GroundGrids[x, y].IsBuildable && ObjGrids[x, y].IsBuildable)
         {
+            Debug.Log("Put");
             IsBuildable = true;
         }
         else

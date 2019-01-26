@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsWalkable: 0
   IsBuildable: 0
-  obj_num: 0
+  obj_num: 1
 --- !u!212 &212741014765119562
 SpriteRenderer:
   m_ObjectHideFlags: 1
