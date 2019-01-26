@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ac0e4cbce95944e94ddff86333f016, type: 3}
+  m_Name: GridInfoPool
+  m_EditorClassIdentifier: 
+  gridInfos:
+  - Gridname: Empty
+    Gridnum: 0
+    Walkable: 0
+    Buildable: 0
+    GridSprite: {fileID: 0}
+  - Gridname: Ground
+    Gridnum: 1
+    Walkable: 1
+    Buildable: 1
+    GridSprite: {fileID: 21300000, guid: db5900638c658984cb8185d8ba6d9a00, type: 3}
+  - Gridname: Block
+    Gridnum: 2
+    Walkable: 0
+    Buildable: 0
+    GridSprite: {fileID: 21300000, guid: d4c4d45994edfff4db26de3ec8e2b1e5, type: 3}
