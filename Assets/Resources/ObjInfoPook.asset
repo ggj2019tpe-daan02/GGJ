@@ -17,3 +17,8 @@ MonoBehaviour:
     Walkable: 0
     Buildable: 0
     GridSprite: {fileID: 21300000, guid: 6cf155676dbd0e446938e9115a513930, type: 3}
+  - Gridname: Lego
+    Gridnum: 0
+    Walkable: 1
+    Buildable: 0
+    GridSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}

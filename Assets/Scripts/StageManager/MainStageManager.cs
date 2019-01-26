@@ -24,8 +24,12 @@ public class MainStageManager : MonoBehaviour {
 
     Camera camera;
     Grid_Basic[,] GroundGrids;
-    Grid_Basic[,] ObjGrids;
+    Grid_obj[,] ObjGrids;
     Grid_Basic[,] CharactorGrids;
+
+    int testCooldown = 0;
+
+    List<Grid_Ghost> grid_Ghosts = new List<Grid_Ghost>();
     
 	// Use this for initialization
 	void Start () {
@@ -38,7 +42,7 @@ public class MainStageManager : MonoBehaviour {
         startPosition = GlobalPool.globalPool.startPosition;
 
         GroundGrids = new Grid_Basic[Map_Xsize, Map_Ysize];
-        ObjGrids = new Grid_Basic[Map_Xsize, Map_Ysize];
+        ObjGrids = new Grid_obj[Map_Xsize, Map_Ysize];
 
         for(int x = 0; x < Map_Xsize; x++)
         {
@@ -53,7 +57,7 @@ public class MainStageManager : MonoBehaviour {
             for (int y = 0; y < Map_Ysize; y++)
             {
                 GameObject g = Instantiate(ObjPrefabPool.obj[0], startPosition + new Vector3(x, y, -1), Quaternion.identity);
-                ObjGrids[x, y] = g.GetComponent<Grid_Basic>();
+                ObjGrids[x, y] = g.GetComponent<Grid_obj>();
             }
         }
         int r = (int)Random.Range(5, 20);
@@ -64,18 +68,26 @@ public class MainStageManager : MonoBehaviour {
         playerGrid = Player.GetComponent<PlayerGrid>();
         playerGrid.stageManager = this;
 
-        // Create Test Ghost
-        GameObject Ghost = Instantiate(CharacterPrefabPool.obj[1], startPosition + new Vector3(5, 5, -2), Quaternion.identity);
-        Grid_Ghost grid_Ghost = Ghost.GetComponent<Grid_Ghost>();
-        grid_Ghost.x = 5; grid_Ghost.y = 5;
-        grid_Ghost.stageManager = this;
+        SpawnGhost();SpawnGhost(); SpawnItem();
 
+        /*GameObject Lego = Instantiate(ObjPrefabPool.obj[2], startPosition + new Vector3(5, 5, -2), Quaternion.identity);
+        Grid_obj grid = Lego.GetComponent<Grid_obj>();
+        ObjGrids[5, 5] = grid;*/
     }
 	
 	// Update is called once per frame
 	void Update () {
         int[,] result = detective.GetGridID();
         // Debug.Log(result[playerGrid.x, playerGrid.y]);
+        /*if(testCooldown > 20)
+        {
+            testCooldown = 0;
+            SpawnItem();
+        }
+        else
+        {
+            testCooldown++;
+        }*/
 	}
 
     void SetRandomBlock(int blockNum)
@@ -89,6 +101,40 @@ public class MainStageManager : MonoBehaviour {
             y = (int)Random.Range(0, Map_Ysize);
             GroundGrids[x, y].Set(g);
         }
+    }
+
+    void SpawnGhost()
+    {
+        bool work = false;
+        int x = 0, y = 0;
+        while (!work)
+        {
+            x = (int)Random.Range(0, Map_Xsize);
+            y = (int)Random.Range(0, Map_Ysize);
+            work = IsWalkable(x, y);
+        }
+        GameObject Ghost = Instantiate(CharacterPrefabPool.obj[1], startPosition + new Vector3(x, y, -2), Quaternion.identity);
+        Grid_Ghost grid_Ghost = Ghost.GetComponent<Grid_Ghost>();
+        grid_Ghost.x = x; grid_Ghost.y = y;
+        grid_Ghost.stageManager = this;
+    }
+
+    void SpawnItem()
+    {
+        bool work = false;
+        int x = 0, y = 0;
+        while (!work)
+        {
+            x = (int)Random.Range(0, Map_Xsize);
+            y = (int)Random.Range(0, Map_Ysize);
+            if(IsWalkable(x,y) && IsBuildable(x,y) && ObjGrids[x,y])
+            {
+                work = IsWalkable(x, y);
+            }
+        }
+        GameObject Lego = Instantiate(ObjPrefabPool.obj[2], startPosition + new Vector3(x, y, -1), Quaternion.identity);
+        Grid_obj grid = Lego.GetComponent<Grid_obj>();
+        ObjGrids[x, y] = grid;
     }
 
     // Only check ground layer now
@@ -119,15 +165,23 @@ public class MainStageManager : MonoBehaviour {
         {
             IsBuildable = false;
         }
-
-        if (IsBuildable)
-        {
-            Debug.Log("Put");
-            ObjGrids[x, y].Set(GlobalPool.globalPool.objInfoPool.gridInfos[0]);
-        }
         // need check objGrid too!!!!
 
         return IsBuildable;
+    }
+    public void Build(int x, int y)
+    {
+      ObjGrids[x, y].Set(GlobalPool.globalPool.objInfoPool.gridInfos[0]);
+    }
+
+    public void CheckPlayerPosition()
+    {
+        Vector2 xy = playerXY();
+        int x = (int)xy.x; int y = (int)xy.y;
+        if(ObjGrids[x,y] != null)
+        {
+            ObjGrids[x, y].OnPlayerTouch();
+        }
     }
 
     public Vector2 MapSize()

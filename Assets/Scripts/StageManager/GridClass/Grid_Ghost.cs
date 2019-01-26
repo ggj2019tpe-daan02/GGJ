@@ -22,7 +22,7 @@ public class Grid_Ghost : Grid_Basic {
 	// Update is called once per frame
 	void Update () {
 
-        if (testCooldown > 10)
+        if (testCooldown > 30)
         {
             testCooldown = 0;
             Vector2 playerXY = stageManager.playerXY();

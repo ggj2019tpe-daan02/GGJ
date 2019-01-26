@@ -9,6 +9,7 @@ public class PlayerGrid : MonoBehaviour {
     public MainStageManager stageManager;
     Vector3 startPosition;
 
+    public static int LegoNum = 3;
     int testCooldown = 0;
 
     int h;
@@ -61,9 +62,15 @@ public class PlayerGrid : MonoBehaviour {
 
     void PutBlock()
     {
+        if (LegoNum <= 0) return;
         if (Input.GetButtonDown("Jump"))
         {
+            LegoNum--;
             bool b = stageManager.IsBuildable(x, y);
+            if (b)
+            {
+                stageManager.Build(x, y);
+            }
         }
     }
 
@@ -75,6 +82,7 @@ public class PlayerGrid : MonoBehaviour {
             if (stageManager.IsWalkable(x + h, y))
             {
                 x += h;
+                stageManager.CheckPlayerPosition();
             }
         }
         if (v != 0)
@@ -82,6 +90,7 @@ public class PlayerGrid : MonoBehaviour {
             if (stageManager.IsWalkable(x, y + v))
             {
                 y += v;
+                stageManager.CheckPlayerPosition();
             }
         }
 

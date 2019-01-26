@@ -14,4 +14,8 @@ public class Grid_obj : Grid_Basic {
 		
 	}
 
+    public virtual void OnPlayerTouch()
+    {
+
+    }
 }
