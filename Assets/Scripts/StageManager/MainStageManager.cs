@@ -15,6 +15,10 @@ public class MainStageManager : MonoBehaviour {
     public GridPrefabPool CharacterPrefabPool;
     [Header("")]
 
+    [Header("Detective")]
+    public Detective detective;
+    [Header("")]
+
     public GameObject prefabs;
     public PlayerGrid playerGrid;
 
@@ -55,15 +59,23 @@ public class MainStageManager : MonoBehaviour {
         int r = (int)Random.Range(5, 20);
         SetRandomBlock(10);
 
+        // Create Player
         GameObject Player = Instantiate(CharacterPrefabPool.obj[0], startPosition + new Vector3(0, 0, -2), Quaternion.identity);
         playerGrid = Player.GetComponent<PlayerGrid>();
         playerGrid.stageManager = this;
+
+        // Create Test Ghost
+        GameObject Ghost = Instantiate(CharacterPrefabPool.obj[1], startPosition + new Vector3(5, 5, -2), Quaternion.identity);
+        Grid_Ghost grid_Ghost = Ghost.GetComponent<Grid_Ghost>();
+        grid_Ghost.x = 5; grid_Ghost.y = 5;
+        grid_Ghost.stageManager = this;
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        int[,] result = detective.GetGridID();
+        // Debug.Log(result[playerGrid.x, playerGrid.y]);
 	}
 
     void SetRandomBlock(int blockNum)

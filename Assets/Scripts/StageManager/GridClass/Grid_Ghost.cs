@@ -25,6 +25,11 @@ public class Grid_Ghost : Grid_Basic {
         if (testCooldown > 10)
         {
             testCooldown = 0;
+            Vector2 playerXY = stageManager.playerXY();
+            Vector2 hv = stageManager.detective.FindDirection(x, y, (int)playerXY.x, (int)playerXY.y);
+            // Move((int)hv.x, (int)hv.y);
+            Debug.Log(hv.x);
+            Debug.Log(hv.y);
         }
         else
         {
