@@ -152,7 +152,7 @@ public class Detective : MonoBehaviour {
 
         // player win
 
-        if (!withGhost) {
+        if (!withGhost && playerId!=-1) {
             int blockCount = PointDict[playerId].Count;
             // do player win action
             Debug.Log("player win! with " + blockCount + " blocks captured");
