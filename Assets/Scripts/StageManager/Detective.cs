@@ -37,7 +37,7 @@ public class Detective : MonoBehaviour {
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
                     if (i != 0 && j != 0) continue;
-
+                    if (i == 0 && j == 0) continue;
                     int x = now.x + i;
                     int y = now.y + j;
                     if (x < 0 || x >= size.x || y < 0 || y >= size.y) continue;
