@@ -108,4 +108,62 @@ public class Detective : MonoBehaviour {
         //Debug.Log("failed");
         return new Vector2(0,0);
     }
+
+
+    
+
+    public void CalculateStatus() {
+        int[,] GridId = GetGridID();
+        Vector2 playerXY = stagemanager.playerXY();
+        Vector2 size = stagemanager.MapSize();
+        List<int> solvedIds = new List<int>();
+
+        int playerId = GridId[(int)playerXY.x, (int)playerXY.y];
+
+        bool withGhost = false;
+
+
+        // gether all point belongs to one id
+
+        Dictionary<int, List<Vector2>> PointDict = new Dictionary<int, List<Vector2>>();
+
+        for(int i = 0; i < size.x; i++) {
+            for(int j = 0; j < size.y; j++) {
+                int id = GridId[i, j];
+                if (!PointDict.ContainsKey(id)) PointDict[id] = new List<Vector2>();
+                PointDict[id].Add(new Vector2(i, j));
+            }
+        }
+
+        // do per enemy check
+
+        foreach(var ghost in stagemanager.ghostList) {
+
+            int ghostId = GridId[ghost.x, ghost.y];
+            if (ghostId == playerId) withGhost = true;
+            else {
+                solvedIds.Add(ghostId);
+                int blockCount = PointDict[ghostId].Count;
+            }
+        }
+
+        // player win
+
+        if (!withGhost) {
+            int blockCount = PointDict[playerId].Count;
+            // do player win action
+        }
+
+        // do per block update
+
+        foreach(var i in solvedIds) {
+            foreach(var point in PointDict[i]) {
+                // block those points
+
+            }
+        }
+    }
+
+
+
 }
