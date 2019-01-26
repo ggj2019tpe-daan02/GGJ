@@ -29,7 +29,7 @@ public class MainStageManager : MonoBehaviour {
 
     int testCooldown = 0;
 
-    List<Grid_Ghost> grid_Ghosts = new List<Grid_Ghost>();
+    public List<Grid_Ghost> ghostList = new List<Grid_Ghost>();
     
 	// Use this for initialization
 	void Start () {
@@ -117,6 +117,8 @@ public class MainStageManager : MonoBehaviour {
         Grid_Ghost grid_Ghost = Ghost.GetComponent<Grid_Ghost>();
         grid_Ghost.x = x; grid_Ghost.y = y;
         grid_Ghost.stageManager = this;
+
+        ghostList.Add(grid_Ghost);
     }
 
     void SpawnItem()
