@@ -47,14 +47,14 @@ public class MainStageManager : MonoBehaviour {
         {
             for (int y = 0; y < Map_Ysize; y++)
             {
-                GameObject g = Instantiate(ObjPrefabPool.obj[0], startPosition + new Vector3(x, y, 0), Quaternion.identity);
+                GameObject g = Instantiate(ObjPrefabPool.obj[0], startPosition + new Vector3(x, y, -1), Quaternion.identity);
                 ObjGrids[x, y] = g.GetComponent<Grid_Basic>();
             }
         }
         int r = (int)Random.Range(5, 20);
         SetRandomBlock(10);
 
-        GameObject Player = Instantiate(CharacterPrefabPool.obj[0], startPosition + new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject Player = Instantiate(CharacterPrefabPool.obj[0], startPosition + new Vector3(0, 0, -2), Quaternion.identity);
         PlayerGrid playerGrid = Player.GetComponent<PlayerGrid>();
         playerGrid.stageManager = this;
 

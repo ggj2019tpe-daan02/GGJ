@@ -85,6 +85,6 @@ public class PlayerGrid : MonoBehaviour {
             }
         }
 
-        transform.DOMove(startPosition + new Vector3(x, y, 0), 0.25f);
+        transform.DOMove(startPosition + new Vector3(x, y, -2), 0.25f);
     }
 }
