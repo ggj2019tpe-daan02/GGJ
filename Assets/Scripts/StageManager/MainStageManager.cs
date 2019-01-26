@@ -16,6 +16,7 @@ public class MainStageManager : MonoBehaviour {
     [Header("")]
 
     public GameObject prefabs;
+    public PlayerGrid playerGrid;
 
     Camera camera;
     Grid_Basic[,] GroundGrids;
@@ -55,7 +56,7 @@ public class MainStageManager : MonoBehaviour {
         SetRandomBlock(10);
 
         GameObject Player = Instantiate(CharacterPrefabPool.obj[0], startPosition + new Vector3(0, 0, -2), Quaternion.identity);
-        PlayerGrid playerGrid = Player.GetComponent<PlayerGrid>();
+        playerGrid = Player.GetComponent<PlayerGrid>();
         playerGrid.stageManager = this;
 
     }
@@ -115,5 +116,17 @@ public class MainStageManager : MonoBehaviour {
         // need check objGrid too!!!!
 
         return IsBuildable;
+    }
+
+    public Vector2 MapSize()
+    {
+        Vector2 xy = new Vector2(Map_Xsize, Map_Ysize);
+        return xy;
+    }
+
+    public Vector2 playerXY()
+    {
+        Vector2 xy = new Vector2(playerGrid.x, playerGrid.y);
+        return xy;
     }
 }

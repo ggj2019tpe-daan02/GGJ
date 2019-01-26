@@ -285,6 +285,7 @@ MonoBehaviour:
   CharacterPrefabPool: {fileID: 11400000, guid: 4ae407a7783372648a19e243173749ca,
     type: 2}
   prefabs: {fileID: 1668186829612208, guid: 08ad17af993bc524a801bcf016433efa, type: 2}
+  playerGrid: {fileID: 0}
 --- !u!4 &631495820
 Transform:
   m_ObjectHideFlags: 0
