@@ -56,6 +56,7 @@ public class Detective : MonoBehaviour {
     }
 
     public Vector2 FindDirection(int x, int y, int tx, int ty) {
+        //Debug.Log(x + " " + y + " -> " + tx + " " + ty);
         Vector2 size = stagemanager.MapSize();
         Queue<PathState> queue = new Queue<PathState>();
         int[,] result = new int[(int)size.x, (int)size.y];
@@ -72,6 +73,7 @@ public class Detective : MonoBehaviour {
         while (queue.Count > 0) {
             var now = queue.Dequeue();
             if (now.x == tx && now.y == ty) {
+
                 int dx = 0;
                 int dy = 0;
                 PathState p = now;
@@ -84,7 +86,7 @@ public class Detective : MonoBehaviour {
             }
 
             if (result[now.x, now.y] != -1) continue;
-            if (stagemanager.IsWalkable(now.x, now.y)) continue;
+            if (!stagemanager.IsWalkable(now.x, now.y)) continue;
             result[now.x, now.y] = 1;
 
             for (int i = -1; i <= 1; i++) {
@@ -97,13 +99,13 @@ public class Detective : MonoBehaviour {
                     int ny = now.y + j;
                     if (nx < 0 || nx >= size.x || ny < 0 || ny >= size.y) continue;
 
-
                     queue.Enqueue(new PathState() {
                         x = nx, y = ny, prev = now
                     });
                 }
             }
         }
+        //Debug.Log("failed");
         return new Vector2(0,0);
     }
 }
