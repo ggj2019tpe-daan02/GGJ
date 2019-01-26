@@ -144,6 +144,9 @@ public class Detective : MonoBehaviour {
             else {
                 solvedIds.Add(ghostId);
                 int blockCount = PointDict[ghostId].Count;
+                Debug.Log("ghost chawdu! with " + blockCount + " blocks captured");
+                Destroy(ghost);
+
             }
         }
 
@@ -152,6 +155,7 @@ public class Detective : MonoBehaviour {
         if (!withGhost) {
             int blockCount = PointDict[playerId].Count;
             // do player win action
+            Debug.Log("player win! with " + blockCount + " blocks captured");
         }
 
         // do per block update
