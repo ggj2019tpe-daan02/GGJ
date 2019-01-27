@@ -115,6 +115,8 @@ public class Detective : MonoBehaviour {
 
 
     public void CalculateStatus() {
+        if (PlayerWin) return;
+
         int[,] GridId = GetGridID();
         Vector2 playerXY = stagemanager.playerXY();
         Vector2 size = stagemanager.MapSize();
