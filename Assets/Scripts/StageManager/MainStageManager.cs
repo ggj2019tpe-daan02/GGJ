@@ -192,7 +192,6 @@ public class MainStageManager : MonoBehaviour {
     }
 
     public void SetBlocked(int x, int y) {
-        if (BlockedArray[x, y] == null) return;
         BlockedArray[x, y] = true;
     }
 
