@@ -168,26 +168,34 @@ public class Detective : MonoBehaviour {
                 stagemanager.PlayerWin();
             }
 
-        }
 
-        // do per block update
-        foreach (var i in solvedIds) {
-            if (PointDict[i] != null)
-                foreach (var point in PointDict[i]) {
-                    // block those points
-                    stagemanager.SetBlocked((int)point.x, (int)point.y);
-                    Debug.Log(point.x + " " + point.y);
+            // do per block update
+            foreach (var i in solvedIds) {
+                PointDict.Remove(i);
+            }
+
+
+            foreach (var pair in PointDict) {
+                if (pair.Key == -1) continue;
+                if (pair.Key == playerId) continue;
+                if (pair.Value != null) {
+                    Debug.Log("detected a empty place" + pair.Key);
+                    solvedIds.Add(pair.Key);
                 }
-            PointDict.Remove(i);
+            }
+
+
+            // do per block update
+            foreach (var i in solvedIds) {
+                if (PointDict[i] != null)
+                    foreach (var point in PointDict[i]) {
+                        // block those points
+                        stagemanager.SetBlocked((int)point.x, (int)point.y);
+                        Debug.Log(point.x + " " + point.y);
+                    }
+            }
+
         }
-
-
-        //foreach (var pair in PointDict) {
-        //    if (pair.Key == -1) continue;
-        //    if (pair.Value != null) {
-        //        Debug.Log("detected a empty place"+pair.Key);
-        //    }
-        //}
     }
 
 
