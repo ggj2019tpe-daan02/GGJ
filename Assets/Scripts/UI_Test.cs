@@ -15,7 +15,7 @@ public class UI_Test : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Lego.text = "剩餘樂高數:" + PlayerGrid.LegoNum;
+        Lego.text =  "x" + PlayerGrid.LegoNum.ToString();
         scoreText.text = MainStageManager.score.ToString();
 	}
 }
