@@ -106,11 +106,11 @@ public class Detective : MonoBehaviour {
             }
         }
         //Debug.Log("failed");
-        return new Vector2(0,0);
+        return new Vector2(0, 0);
     }
 
 
-    
+
 
     public void CalculateStatus() {
         int[,] GridId = GetGridID();
@@ -127,26 +127,27 @@ public class Detective : MonoBehaviour {
 
         Dictionary<int, List<Vector2>> PointDict = new Dictionary<int, List<Vector2>>();
 
-        for(int i = 0; i < size.x; i++) {
-            for(int j = 0; j < size.y; j++) {
+        for (int i = 0; i < size.x; i++) {
+            for (int j = 0; j < size.y; j++) {
                 int id = GridId[i, j];
+                if (id == -1) continue;
                 if (!PointDict.ContainsKey(id)) PointDict[id] = new List<Vector2>();
                 PointDict[id].Add(new Vector2(i, j));
             }
         }
 
         // do per enemy check
+        List<Vector2> PlayerSpots = new List<Vector2>();
 
-        if (playerId != -1)
-        {
+        if (playerId != -1) {
+            PlayerSpots = PointDict[playerId];
 
-
-            foreach(var ghost in stagemanager.ghostList) {
+            foreach (var ghost in stagemanager.ghostList) {
 
                 int ghostId = GridId[ghost.x, ghost.y];
                 if (ghostId == playerId) withGhost = true;
                 else {
-                    if (ghost.Isdeath) return;
+                    if (ghost.Isdeath) continue;
                     solvedIds.Add(ghostId);
                     int blockCount = PointDict[ghostId].Count;
                     Debug.Log("ghost chawdu! with " + blockCount + " blocks captured");
@@ -163,18 +164,30 @@ public class Detective : MonoBehaviour {
                 int blockCount = PointDict[playerId].Count;
                 // do player win action
                 Debug.Log("player win! with " + blockCount + " blocks captured");
+                MainStageManager.score += blockCount;
                 stagemanager.PlayerWin();
             }
 
         }
+
         // do per block update
-
-        foreach(var i in solvedIds) {
-            foreach(var point in PointDict[i]) {
-                // block those points
-
-            }
+        foreach (var i in solvedIds) {
+            if (PointDict[i] != null)
+                foreach (var point in PointDict[i]) {
+                    // block those points
+                    stagemanager.SetBlocked((int)point.x, (int)point.y);
+                    Debug.Log(point.x + " " + point.y);
+                }
+            PointDict.Remove(i);
         }
+
+
+        //foreach (var pair in PointDict) {
+        //    if (pair.Key == -1) continue;
+        //    if (pair.Value != null) {
+        //        Debug.Log("detected a empty place"+pair.Key);
+        //    }
+        //}
     }
 
 
