@@ -30,6 +30,11 @@ public class MainStageManager : MonoBehaviour {
     [Header("WinScene")]
     public EndControl endControl;
 
+    [Header("PausePanel")]
+    public GameObject PausePanel;
+
+    bool IsStageStart = false;
+
     [SerializeField] _SceneManager _SceneManager;
 
     public GameObject prefabs;
@@ -62,6 +67,9 @@ public class MainStageManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (!IsStageStart) return;
+
         int[,] result = detective.GetGridID();
         // Debug.Log(result[playerGrid.x, playerGrid.y]);
         if(testCooldown > 120)
@@ -72,6 +80,18 @@ public class MainStageManager : MonoBehaviour {
         else
         {
             testCooldown++;
+        }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (PausePanel.active)
+            {
+                UnPause();
+            }
+            else
+            {
+                Pause();
+            }
         }
 
         EnemyCheck();
@@ -122,6 +142,7 @@ public class MainStageManager : MonoBehaviour {
         playerGrid.stageManager = this;
 
         SpawnGhost(); SpawnGhost(); SpawnGhost(); SpawnItem();
+        IsStageStart = true;
         yield return 0;
     }
 
@@ -261,6 +282,15 @@ public class MainStageManager : MonoBehaviour {
         return xy;
     }
 
+    void Pause()
+    {
+        PausePanel.SetActive(true);
+    }
+
+    void UnPause()
+    {
+        PausePanel.SetActive(false);
+    }
 
     public void PlayerWin()
     {
