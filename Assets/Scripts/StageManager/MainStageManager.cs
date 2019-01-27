@@ -141,7 +141,7 @@ public class MainStageManager : MonoBehaviour {
         playerGrid.x = 8; playerGrid.y = 5;
         playerGrid.stageManager = this;
 
-        SpawnGhost(); SpawnGhost(); SpawnGhost(); SpawnItem();
+        SpawnGhost(); SpawnItem();
         IsStageStart = true;
         yield return 0;
     }
@@ -175,25 +175,55 @@ public class MainStageManager : MonoBehaviour {
 
     void SpawnGhost()
     {
-        bool work = false;
-        int x = 0, y = 0;
-        while (!work)
-        {
-            x = (int)Random.Range(0, Map_Xsize);
-            y = (int)Random.Range(0, Map_Ysize);
-            work = IsWalkable(x, y);
-        }
-        GameObject Ghost = Instantiate(CharacterPrefabPool.obj[1], startPosition + new Vector3(x, y, -2), Quaternion.identity);
+        GameObject Ghost = Instantiate(CharacterPrefabPool.obj[1], startPosition + new Vector3(0, 0, -2), Quaternion.identity);
 
         Grid_Ghost grid_Ghost = Ghost.GetComponent<Grid_Ghost>();
-        grid_Ghost.x = x; grid_Ghost.y = y;
+        grid_Ghost.x = 0; grid_Ghost.y = 0;
         grid_Ghost.stageManager = this;
         GhostCount++;
         if(GhostCount >= 3)
         {
             grid_Ghost.Sausage = true ;
         }
+        ghostList.Add(grid_Ghost);
 
+
+        Ghost = Instantiate(CharacterPrefabPool.obj[1], startPosition + new Vector3(16, 0, -2), Quaternion.identity);
+
+        grid_Ghost = Ghost.GetComponent<Grid_Ghost>();
+        grid_Ghost.x = 16; grid_Ghost.y = 0;
+        grid_Ghost.stageManager = this;
+        GhostCount++;
+        if (GhostCount >= 3)
+        {
+            grid_Ghost.Sausage = true;
+        }
+        ghostList.Add(grid_Ghost);
+
+
+        Ghost = Instantiate(CharacterPrefabPool.obj[1], startPosition + new Vector3(0, 9, -2), Quaternion.identity);
+
+        grid_Ghost = Ghost.GetComponent<Grid_Ghost>();
+        grid_Ghost.x = 0; grid_Ghost.y = 9;
+        grid_Ghost.stageManager = this;
+        GhostCount++;
+        if (GhostCount >= 3)
+        {
+            grid_Ghost.Sausage = true;
+        }
+        ghostList.Add(grid_Ghost);
+
+
+        Ghost = Instantiate(CharacterPrefabPool.obj[1], startPosition + new Vector3(16, 9, -2), Quaternion.identity);
+
+        grid_Ghost = Ghost.GetComponent<Grid_Ghost>();
+        grid_Ghost.x = 16; grid_Ghost.y = 9;
+        grid_Ghost.stageManager = this;
+        GhostCount++;
+        if (GhostCount >= 3)
+        {
+            grid_Ghost.Sausage = true;
+        }
         ghostList.Add(grid_Ghost);
     }
 
@@ -239,6 +269,7 @@ public class MainStageManager : MonoBehaviour {
     }
     public bool IsBuildable(int x, int y)
     {
+        detective.CalculateStatus();
         if (GroundGrids[x, y] == null) return false;
         bool IsBuildable;
         if (GroundGrids[x, y].IsBuildable && ObjGrids[x, y].IsBuildable)
@@ -255,9 +286,11 @@ public class MainStageManager : MonoBehaviour {
     }
     public void Build(int x, int y)
     {
+        detective.CalculateStatus();
         int r = (int)Random.Range(0, 4);
         if (r == 1) r = 4;
       ObjGrids[x, y].Set(GlobalPool.globalPool.objInfoPool.gridInfos[r]);
+        detective.CalculateStatus();
     }
 
     public void CheckPlayerPosition()
