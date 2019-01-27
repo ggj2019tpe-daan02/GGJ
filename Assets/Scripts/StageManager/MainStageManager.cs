@@ -172,6 +172,26 @@ public class MainStageManager : MonoBehaviour
             int x = 0, y = 0;
             x = (int)Random.Range(0, Map_Xsize);
             y = (int)Random.Range(0, Map_Ysize);
+            if(x == 0 && y == 0)
+            {
+                x = (int)Random.Range(0, Map_Xsize);
+                y = (int)Random.Range(0, Map_Ysize);
+            }
+            if (x == 16 && y == 0)
+            {
+                x = (int)Random.Range(0, Map_Xsize);
+                y = (int)Random.Range(0, Map_Ysize);
+            }
+            if (x == 0 && y == 9)
+            {
+                x = (int)Random.Range(0, Map_Xsize);
+                y = (int)Random.Range(0, Map_Ysize);
+            }
+            if (x == 16 && y == 9)
+            {
+                x = (int)Random.Range(0, Map_Xsize);
+                y = (int)Random.Range(0, Map_Ysize);
+            }
             GroundGrids[x, y].Set(g);
         }
     }
