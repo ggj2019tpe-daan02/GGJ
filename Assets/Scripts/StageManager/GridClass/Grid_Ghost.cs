@@ -69,6 +69,7 @@ public class Grid_Ghost : Grid_Basic {
             Target += (playerXY - new Vector2(x, y))*AI_multipler;
 
             Vector2 hv = stageManager.detective.FindDirection(x, y, (int)Target.x, (int)Target.y);
+            if(hv.x==0 && hv.y==0) stageManager.detective.FindDirection(x, y, (int)playerXY.x, (int)playerXY.y);
             Move((int)hv.x, (int)hv.y);
 
 

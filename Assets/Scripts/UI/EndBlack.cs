@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
-public class EndImage : MonoBehaviour {
+public class EndBlack : MonoBehaviour {
 
-    RectTransform rectTransform;
+    Image image;
 	// Use this for initialization
 	void Start () {
-        rectTransform = GetComponent<RectTransform>();
-        rectTransform.localScale = Vector3.zero;
-    }
+        image = GetComponent<Image>();
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -23,7 +23,8 @@ public class EndImage : MonoBehaviour {
 
     IEnumerator Play()
     {
-        rectTransform.DOScale(new Vector3(1, 1, 1), 0.5f);
+
+        image.DOColor(new Color(0, 0, 0, 0.45f), 0.6f);
         yield return 0;
     }
 }

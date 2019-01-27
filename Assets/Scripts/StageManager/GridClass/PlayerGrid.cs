@@ -38,7 +38,6 @@ public class PlayerGrid : MonoBehaviour {
 
         if (testCooldown > 10)
         {
-            testCooldown = 0;
             Move();
         }
         else
@@ -115,6 +114,7 @@ public class PlayerGrid : MonoBehaviour {
         {
             if (stageManager.IsWalkable(x + h, y))
             {
+                testCooldown = 0;
                 x += h;
                 stageManager.CheckPlayerPosition();
             }
@@ -123,6 +123,7 @@ public class PlayerGrid : MonoBehaviour {
         {
             if (stageManager.IsWalkable(x, y + v))
             {
+                testCooldown = 0;
                 y += v;
                 stageManager.CheckPlayerPosition();
             }
