@@ -40,6 +40,7 @@ public class MainStageManager : MonoBehaviour {
     Grid_Basic[,] GroundGrids;
     Grid_obj[,] ObjGrids;
     Grid_Basic[,] CharactorGrids;
+    bool[,] BlockedArray;
 
     int testCooldown = 0;
 
