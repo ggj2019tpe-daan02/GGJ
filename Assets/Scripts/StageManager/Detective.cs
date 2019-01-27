@@ -6,6 +6,8 @@ public class Detective : MonoBehaviour {
     public MainStageManager stagemanager;
 
 
+    public bool PlayerWin = false;
+
     class GridIDState {
         public int x;
         public int y;
@@ -160,7 +162,8 @@ public class Detective : MonoBehaviour {
 
             // player win
 
-            if (!withGhost) {
+            if (!withGhost&&!PlayerWin) {
+                PlayerWin = true;
                 int blockCount = PointDict[playerId].Count;
                 // do player win action
                 Debug.Log("player win! with " + blockCount + " blocks captured");
