@@ -18,6 +18,10 @@ public class PlayerGrid : MonoBehaviour {
     [SerializeField] Sprite[] WalkSprites;
     SpriteRenderer s;
 
+    [Header("Death")]
+    SpriteRenderer[] DeathSprites;
+    bool IsDeath = false;
+
     int h;
     int v;
     // Use this for initialization
@@ -44,6 +48,11 @@ public class PlayerGrid : MonoBehaviour {
 
         AnimationUpdate();
         PutBlock();
+    }
+
+    public void Death()
+    {
+
     }
 
     void PlayerInput()

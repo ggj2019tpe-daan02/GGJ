@@ -27,3 +27,8 @@ MonoBehaviour:
     Walkable: 0
     Buildable: 0
     GridSprite: {fileID: 21300000, guid: 7781048176133844dab580b8ab71e777, type: 3}
+  - Gridname: Block
+    Gridnum: 2
+    Walkable: 0
+    Buildable: 0
+    GridSprite: {fileID: 21300000, guid: 930d9c2b9159b2344b47e0bb1867b663, type: 3}

@@ -17,6 +17,8 @@ public class Grid_Ghost : Grid_Basic {
     [SerializeField] Sprite[] IdleSprites;
     int testCooldown = 0;
 
+    AudioSource audioSource;
+
     SpriteRenderer s;
     int h;
     int v;
@@ -36,6 +38,7 @@ public class Grid_Ghost : Grid_Basic {
         AI_predictor = Random.Range(0, 4f);
         startPosition = GlobalPool.globalPool.startPosition;
         s = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
         if (Sausage)
         {
@@ -119,7 +122,8 @@ public class Grid_Ghost : Grid_Basic {
     {
         Isdeath = true;
         s.sprite = DeathSprite;
-        transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InOutCubic);
+        audioSource.Play();
+        transform.DOScale(Vector3.zero, 1.5f).SetEase(Ease.InOutCubic);
     }
 
     private void OnDestroy()

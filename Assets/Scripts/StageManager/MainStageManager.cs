@@ -193,6 +193,7 @@ public class MainStageManager : MonoBehaviour {
 
     public void SetBlocked(int x, int y) {
         BlockedArray[x, y] = true;
+        GroundGrids[x, y].Set(GlobalPool.globalPool.groundInfoPool.gridInfos[3]);
     }
 
     // Only check ground layer now
