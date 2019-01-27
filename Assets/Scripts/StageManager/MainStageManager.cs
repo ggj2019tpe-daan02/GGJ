@@ -82,7 +82,7 @@ public class MainStageManager : MonoBehaviour {
 
         GroundGrids = new Grid_Basic[Map_Xsize, Map_Ysize];
         ObjGrids = new Grid_obj[Map_Xsize, Map_Ysize];
-
+        BlockedArray = new bool[Map_Xsize, Map_Ysize];
 
         float t = 0;
         
@@ -105,6 +105,7 @@ public class MainStageManager : MonoBehaviour {
             {
                 GameObject g = Instantiate(ObjPrefabPool.obj[0], startPosition + new Vector3(x, y, -1), Quaternion.identity);
                 ObjGrids[x, y] = g.GetComponent<Grid_obj>();
+                BlockedArray[x, y] = false;
             }
         }
         int r = (int)Random.Range(5, 20);
@@ -190,11 +191,17 @@ public class MainStageManager : MonoBehaviour {
         ObjGrids[x, y] = grid;
     }
 
+    public void SetBlocked(int x, int y) {
+        if (BlockedArray[x, y] == null) return;
+        BlockedArray[x, y] = true;
+    }
+
     // Only check ground layer now
     public bool IsWalkable(int x, int y)
     {
         bool isWalkable;
         if (GroundGrids[x, y] == null) return false;
+        if (BlockedArray[x, y]) return false;
         if(GroundGrids[x, y].IsWalkable && ObjGrids[x, y].IsWalkable)
         {
             isWalkable = true;
