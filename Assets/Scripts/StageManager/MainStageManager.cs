@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class MainStageManager : MonoBehaviour {
+public class MainStageManager : MonoBehaviour
+{
 
     [SerializeField] int Map_Xsize;
     [SerializeField] int Map_Ysize;
@@ -53,9 +54,10 @@ public class MainStageManager : MonoBehaviour {
     int testCooldown = 0;
 
     public List<Grid_Ghost> ghostList = new List<Grid_Ghost>();
-    
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start()
+    {
         /*camera = Camera.main;
         float height = 2f * camera.orthographicSize;
         float width = height * camera.aspect;
@@ -64,15 +66,16 @@ public class MainStageManager : MonoBehaviour {
         score = 0;
         StartCoroutine(StageStart());
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (!IsStageStart) return;
 
         int[,] result = detective.GetGridID();
         // Debug.Log(result[playerGrid.x, playerGrid.y]);
-        if(testCooldown > 120)
+        if (testCooldown > 120)
         {
             testCooldown = 0;
             SpawnItem();
@@ -108,7 +111,7 @@ public class MainStageManager : MonoBehaviour {
         BlockedArray = new bool[Map_Xsize, Map_Ysize];
 
         float t = 0;
-        
+
         for (int x = 0; x < Map_Xsize; x++)
         {
             for (int y = 0; y < Map_Ysize; y++)
@@ -136,7 +139,7 @@ public class MainStageManager : MonoBehaviour {
 
         yield return new WaitForSecondsRealtime(1.5f);
         // Create Player
-        GameObject Player = Instantiate(CharacterPrefabPool.obj[0], startPosition + new Vector3(8, 5, -2) + new Vector3(0,20,0), Quaternion.identity);
+        GameObject Player = Instantiate(CharacterPrefabPool.obj[0], startPosition + new Vector3(8, 5, -2) + new Vector3(0, 20, 0), Quaternion.identity);
         playerGrid = Player.GetComponent<PlayerGrid>();
         playerGrid.x = 8; playerGrid.y = 5;
         playerGrid.stageManager = this;
@@ -151,9 +154,9 @@ public class MainStageManager : MonoBehaviour {
         if (ghostList.Count <= 0) return;
         int x = playerGrid.x;
         int y = playerGrid.y;
-        foreach(Grid_Ghost ghost in ghostList)
+        foreach (Grid_Ghost ghost in ghostList)
         {
-            if(ghost.x == x&&ghost.y == y)
+            if (ghost.x == x && ghost.y == y)
             {
                 PlayerLose();
             }
@@ -164,7 +167,7 @@ public class MainStageManager : MonoBehaviour {
     {
         GridInfo g = GlobalPool.globalPool.groundInfoPool.gridInfos[2];
 
-        for(int i = 0; i < blockNum; i++)
+        for (int i = 0; i < blockNum; i++)
         {
             int x = 0, y = 0;
             x = (int)Random.Range(0, Map_Xsize);
@@ -181,9 +184,9 @@ public class MainStageManager : MonoBehaviour {
         grid_Ghost.x = 0; grid_Ghost.y = 0;
         grid_Ghost.stageManager = this;
         GhostCount++;
-        if(GhostCount >= 3)
+        if (GhostCount >= 3)
         {
-            grid_Ghost.Sausage = true ;
+            grid_Ghost.Sausage = true;
         }
         ghostList.Add(grid_Ghost);
 
@@ -235,7 +238,7 @@ public class MainStageManager : MonoBehaviour {
         {
             x = (int)Random.Range(0, Map_Xsize);
             y = (int)Random.Range(0, Map_Ysize);
-            if(IsWalkable(x,y) && IsBuildable(x,y) && ObjGrids[x,y])
+            if (IsWalkable(x, y) && IsBuildable(x, y) && ObjGrids[x, y])
             {
                 work = IsWalkable(x, y);
             }
@@ -245,7 +248,8 @@ public class MainStageManager : MonoBehaviour {
         ObjGrids[x, y] = grid;
     }
 
-    public void SetBlocked(int x, int y) {
+    public void SetBlocked(int x, int y)
+    {
         BlockedArray[x, y] = true;
         GroundGrids[x, y].Set(GlobalPool.globalPool.groundInfoPool.gridInfos[3]);
     }
@@ -256,7 +260,7 @@ public class MainStageManager : MonoBehaviour {
         bool isWalkable;
         if (GroundGrids[x, y] == null) return false;
         if (BlockedArray[x, y]) return false;
-        if(GroundGrids[x, y].IsWalkable && ObjGrids[x, y].IsWalkable)
+        if (GroundGrids[x, y].IsWalkable && ObjGrids[x, y].IsWalkable)
         {
             isWalkable = true;
         }
@@ -289,15 +293,16 @@ public class MainStageManager : MonoBehaviour {
         detective.CalculateStatus();
         int r = (int)Random.Range(0, 4);
         if (r == 1) r = 4;
-      ObjGrids[x, y].Set(GlobalPool.globalPool.objInfoPool.gridInfos[r]);
+        ObjGrids[x, y].Set(GlobalPool.globalPool.objInfoPool.gridInfos[r]);
         detective.CalculateStatus();
+        SFXController.Play(SFXController.SoundType.PlaceBlock);
     }
 
     public void CheckPlayerPosition()
     {
         Vector2 xy = playerXY();
         int x = (int)xy.x; int y = (int)xy.y;
-        if(ObjGrids[x,y] != null)
+        if (ObjGrids[x, y] != null)
         {
             ObjGrids[x, y].OnPlayerTouch();
         }
@@ -334,6 +339,9 @@ public class MainStageManager : MonoBehaviour {
     {
         yield return new WaitForSecondsRealtime(1);
         endControl.Play();
+
+        SFXController.Play(SFXController.SoundType.Win, 0.5f);
+        GameObject.Find("Music").GetComponent<AudioSource>().Stop();
         // _SceneManager.LoadScene("Title");
         yield return 0;
     }
@@ -344,6 +352,8 @@ public class MainStageManager : MonoBehaviour {
         {
             Destroy(playerGrid);
             StartCoroutine(Lose());
+
+            SFXController.Play(SFXController.SoundType.PlayerDie, 0.25f);
         }
     }
 
@@ -352,7 +362,7 @@ public class MainStageManager : MonoBehaviour {
         int i = 0;
         postFX.enabled = true;
         postFX.mat.SetFloat("EffectAmount", 0);
-        while(i < 140)
+        while (i < 140)
         {
             audio.pitch -= 0.023f;
             i++;

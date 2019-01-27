@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class PlayerGrid : MonoBehaviour {
+public class PlayerGrid : MonoBehaviour
+{
 
     public int x = 0, y = 0;
     int way = 0;
@@ -25,14 +26,16 @@ public class PlayerGrid : MonoBehaviour {
     int h;
     int v;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         startPosition = GlobalPool.globalPool.startPosition;
         s = GetComponent<SpriteRenderer>();
         LegoNum = 3;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
         PlayerInput();
 
@@ -86,7 +89,8 @@ public class PlayerGrid : MonoBehaviour {
         if (h > 0)
         {
             way = 1;
-        }else if(h < 0)
+        }
+        else if (h < 0)
         {
             way = 3;
         }
@@ -114,6 +118,8 @@ public class PlayerGrid : MonoBehaviour {
         {
             if (stageManager.IsWalkable(x + h, y))
             {
+
+                SFXController.Play(SFXController.SoundType.Walk);
                 testCooldown = 0;
                 x += h;
                 stageManager.CheckPlayerPosition();
@@ -123,6 +129,8 @@ public class PlayerGrid : MonoBehaviour {
         {
             if (stageManager.IsWalkable(x, y + v))
             {
+
+                SFXController.Play(SFXController.SoundType.Walk);
                 testCooldown = 0;
                 y += v;
                 stageManager.CheckPlayerPosition();
@@ -130,10 +138,11 @@ public class PlayerGrid : MonoBehaviour {
         }
 
         transform.DOMove(startPosition + new Vector3(x, y, -2), 0.25f);
+
     }
 
     void AnimationUpdate()
     {
-        s.sprite = WalkSprites[(way * 2 + (int)(GlobalPool.globalPool.audio.time * 147 / 60 )% 2)];
+        s.sprite = WalkSprites[(way * 2 + (int)(GlobalPool.globalPool.audio.time * 147 / 60) % 2)];
     }
 }

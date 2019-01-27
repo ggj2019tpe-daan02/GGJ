@@ -23,5 +23,7 @@ public class Grid_Lego : Grid_obj {
         IsBuildable = true;
         SpriteRenderer s = GetComponent<SpriteRenderer>();
         s.sprite = null;
+        
+        SFXController.Play(SFXController.SoundType.PickUp, 0.5f);
     }
 }
