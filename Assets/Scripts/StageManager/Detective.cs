@@ -58,6 +58,10 @@ public class Detective : MonoBehaviour {
     }
 
     public Vector2 FindDirection(int x, int y, int tx, int ty) {
+
+        // DEBUG
+        //return new Vector2(0, 0);
+
         //Debug.Log(x + " " + y + " -> " + tx + " " + ty);
         Vector2 size = stagemanager.MapSize();
         Queue<PathState> queue = new Queue<PathState>();
@@ -91,6 +95,7 @@ public class Detective : MonoBehaviour {
             if (!stagemanager.IsWalkable(now.x, now.y)) continue;
             result[now.x, now.y] = 1;
 
+            List<PathState> newPaths = new List<PathState>();
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
                     if (i != 0 && j != 0) continue;
@@ -101,17 +106,29 @@ public class Detective : MonoBehaviour {
                     int ny = now.y + j;
                     if (nx < 0 || nx >= size.x || ny < 0 || ny >= size.y) continue;
 
-                    queue.Enqueue(new PathState() {
+                    newPaths.Add(new PathState() {
                         x = nx, y = ny, prev = now
                     });
                 }
             }
+            Shuffle(newPaths);
+            foreach (var path in newPaths) queue.Enqueue(path);
         }
         //Debug.Log("failed");
         return new Vector2(0, 0);
     }
 
 
+    public static void Shuffle<T>(IList<T> list) {
+        int n = list.Count;
+        while (n > 1) {
+            n--;
+            int k = Random.Range(0, n);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
 
 
     public void CalculateStatus() {
@@ -150,27 +167,36 @@ public class Detective : MonoBehaviour {
 
                 int ghostId = GridId[ghost.x, ghost.y];
                 if (ghostId == playerId) withGhost = true;
-                else {
-                    if (ghost.Isdeath) continue;
-                    solvedIds.Add(ghostId);
-                    int blockCount = PointDict[ghostId].Count;
-                    Debug.Log("ghost chawdu! with " + blockCount + " blocks captured");
-                    int score = 100 + ((1 - blockCount) * 8);
-                    if (score < 10) score = 10;
-                    MainStageManager.score += score;
-                    ghost.Death();
-                }
             }
+
 
             // player win
 
-            if (!withGhost&&!PlayerWin) {
+            if (!withGhost && !PlayerWin) {
                 PlayerWin = true;
                 int blockCount = PointDict[playerId].Count;
                 // do player win action
                 Debug.Log("player win! with " + blockCount + " blocks captured");
                 MainStageManager.score += blockCount;
                 stagemanager.PlayerWin();
+            }
+
+            foreach (var ghost in stagemanager.ghostList) {
+                int ghostId = GridId[ghost.x, ghost.y];
+                if (ghostId != playerId) {
+                    if (ghost.Isdeath) continue;
+                    solvedIds.Add(ghostId);
+                    int blockCount = PointDict[ghostId].Count;
+                    Debug.Log("ghost chawdu! with " + blockCount + " blocks captured");
+
+                    //if (!PlayerWin) {
+                    int score = 100 + ((1 - blockCount) * 2);
+                    if (score < 1) score = 1;
+                    MainStageManager.score += score;
+                    //}
+
+                    ghost.Death();
+                }
             }
 
 
