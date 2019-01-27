@@ -10,6 +10,9 @@ public class Grid_Ghost : Grid_Basic {
     public MainStageManager stageManager;
     Vector3 startPosition;
 
+    public Sprite DeathSprite;
+    public bool Isdeath = false;
+
     [Header("AnimationSprite")]
     [SerializeField] Sprite[] IdleSprites;
     int testCooldown = 0;
@@ -43,6 +46,14 @@ public class Grid_Ghost : Grid_Basic {
 	// Update is called once per frame
 	void Update () {
 
+        if (Isdeath)
+        {
+            if(transform.localScale.x < 0.01f)
+            {
+                Destroy(this.gameObject);
+            }
+            return;
+        }
         if (testCooldown > 30)
         {
 
@@ -69,7 +80,7 @@ public class Grid_Ghost : Grid_Basic {
 
     public void Move(int h, int v)
     {
-
+        if (Isdeath) return;
         if (h != 0)
         {
             if (stageManager.IsWalkable(x + h, y))
@@ -102,6 +113,13 @@ public class Grid_Ghost : Grid_Basic {
         }
 
         transform.DOMove(startPosition + new Vector3(x, y, -2), 0.25f);
+    }
+
+    public void Death()
+    {
+        Isdeath = true;
+        s.sprite = DeathSprite;
+        transform.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InOutCubic);
     }
 
     private void OnDestroy()

@@ -146,13 +146,14 @@ public class Detective : MonoBehaviour {
                 int ghostId = GridId[ghost.x, ghost.y];
                 if (ghostId == playerId) withGhost = true;
                 else {
+                    if (ghost.Isdeath) return;
                     solvedIds.Add(ghostId);
                     int blockCount = PointDict[ghostId].Count;
                     Debug.Log("ghost chawdu! with " + blockCount + " blocks captured");
                     int score = 100 + ((1 - blockCount) * 8);
                     if (score < 10) score = 10;
                     MainStageManager.score += score;
-                    Destroy(ghost);
+                    ghost.Death();
                 }
             }
 

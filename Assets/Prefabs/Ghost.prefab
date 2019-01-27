@@ -58,6 +58,8 @@ MonoBehaviour:
   x: 0
   y: 0
   stageManager: {fileID: 0}
+  DeathSprite: {fileID: 21300000, guid: e87d8c71b50af614c83db06c6f164b02, type: 3}
+  Isdeath: 0
   IdleSprites:
   - {fileID: 21300000, guid: eeaa1b28453f3e241b9bd1cf846d5154, type: 3}
   - {fileID: 21300000, guid: b5bd2c27ed3859f48b9450a7f9eaa1ad, type: 3}
@@ -67,6 +69,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 732efffc91647e943bdd6baff822af31, type: 3}
   - {fileID: 21300000, guid: 57e574d0c66b0d643b6c945d2c79756b, type: 3}
   - {fileID: 21300000, guid: a13011df322f21640a5ee8ec405ac061, type: 3}
+  Sausage: 0
 --- !u!212 &212386674130972410
 SpriteRenderer:
   m_ObjectHideFlags: 1
