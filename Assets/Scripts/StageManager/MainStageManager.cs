@@ -27,6 +27,9 @@ public class MainStageManager : MonoBehaviour {
     [Header("PostFX")]
     public PostFXScript postFX;
 
+    [Header("WinScene")]
+    public EndControl endControl;
+
     [SerializeField] _SceneManager _SceneManager;
 
     public GameObject prefabs;
@@ -266,8 +269,9 @@ public class MainStageManager : MonoBehaviour {
 
     IEnumerator Win()
     {
-        yield return new WaitForSecondsRealtime(2);
-        _SceneManager.LoadScene("Title");
+        yield return new WaitForSecondsRealtime(1);
+        endControl.Play();
+        // _SceneManager.LoadScene("Title");
         yield return 0;
     }
 

@@ -30,6 +30,7 @@ public class EndText : MonoBehaviour {
 
     IEnumerator Play()
     {
+        text.text = MainStageManager.score.ToString();
         rectTransform.DOScale(new Vector3(1, 1, 1), 0.5f);
         text.DOColor(new Color(0, 0, 0, 1), 0.5f);
         yield return 0;

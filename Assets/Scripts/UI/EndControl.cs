@@ -7,13 +7,22 @@ public class EndControl : MonoBehaviour {
     public EndImage endImage;
     public EndText endText;
     public EndBlack endBlack;
+
+    [Header("SceneManager")]
+    public _SceneManager sceneManager;
+
+    bool canNextStage = false;
 	// Use this for initialization
 	void Start () {
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetButtonDown("Jump") && canNextStage)
+        {
+            canNextStage = false;
+            sceneManager.LoadScene("Main");
+        }
 	}
 
     public void Play()
@@ -28,6 +37,8 @@ public class EndControl : MonoBehaviour {
         endBlack.IPlay();
         yield return new WaitForSecondsRealtime(0.75f);
         endText.IPlay();
+        yield return new WaitForSecondsRealtime(0.5f);
+        canNextStage = true;
         yield return 0;
     }
 }
