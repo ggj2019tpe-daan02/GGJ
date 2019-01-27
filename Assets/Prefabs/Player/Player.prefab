@@ -55,6 +55,24 @@ MonoBehaviour:
   x: 0
   y: 0
   stageManager: {fileID: 0}
+  IdleSprites:
+  - {fileID: 21300000, guid: 3be7c444d57f21c4684a0f6490aed57c, type: 3}
+  - {fileID: 21300000, guid: 524864f8d6009e948a0812fab9087d5d, type: 3}
+  - {fileID: 21300000, guid: 3984909677fb7f24082349d707508a2a, type: 3}
+  - {fileID: 21300000, guid: 3c8cb80e1fc7dae4c88ae9f703b438a4, type: 3}
+  - {fileID: 21300000, guid: a01d25a542c65f543bb35d88db187694, type: 3}
+  - {fileID: 21300000, guid: 825ae14dca2f18a48894de29aca34320, type: 3}
+  - {fileID: 21300000, guid: fb0f7a5ebc98d71498c5fc4200ee7d04, type: 3}
+  - {fileID: 21300000, guid: e406671156745584fa73621daa00c051, type: 3}
+  WalkSprites:
+  - {fileID: 21300000, guid: d5b10106c3e3a7e40b356cb5b3eca411, type: 3}
+  - {fileID: 21300000, guid: d8d6fa3586d3d314294d741a847d485c, type: 3}
+  - {fileID: 21300000, guid: 35745a8f67507b248af96116da00a913, type: 3}
+  - {fileID: 21300000, guid: 253d0663038796643b83267e7afe7e06, type: 3}
+  - {fileID: 21300000, guid: 892beffb0cfb4d148b0d28e1d0d4f592, type: 3}
+  - {fileID: 21300000, guid: 4b1877a5ae5a1d149aaa0be2cf3ee190, type: 3}
+  - {fileID: 21300000, guid: 7ebc1286514fe104f968bfaf2eebeb91, type: 3}
+  - {fileID: 21300000, guid: 88fb0658ffad5a24caa0ce424b79e7b1, type: 3}
 --- !u!212 &212107230047422670
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -90,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: a01d25a542c65f543bb35d88db187694, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -7,6 +7,8 @@ public class GlobalPool : MonoBehaviour {
     [SerializeField] public GridInfoPool groundInfoPool;
     [SerializeField] public GridInfoPool objInfoPool;
     [SerializeField] public Vector3 startPosition;
+    public int BeatTime = 0;
+    public AudioSource audio;
 
     public static GlobalPool globalPool;
 	// Use this for initialization
@@ -16,6 +18,13 @@ public class GlobalPool : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		/*if(audio.time * 147 / 60 % 2 == 1)
+        {
+            BeatTime = 1;
+        }
+        else
+        {
+            BeatTime = 0;
+        }*/
 	}
 }

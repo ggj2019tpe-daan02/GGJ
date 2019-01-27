@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class Grid_Basic : MonoBehaviour {
@@ -23,5 +24,10 @@ public class Grid_Basic : MonoBehaviour {
         IsBuildable = g.Buildable;
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = g.GridSprite;
+    }
+
+    public void Move(Vector3 v3, float t)
+    {
+        transform.DOMove(v3, t).SetEase(Ease.InCirc);
     }
 }

@@ -137,27 +137,35 @@ public class Detective : MonoBehaviour {
 
         // do per enemy check
 
-        foreach(var ghost in stagemanager.ghostList) {
+        if (playerId != -1)
+        {
 
-            int ghostId = GridId[ghost.x, ghost.y];
-            if (ghostId == playerId) withGhost = true;
-            else {
-                solvedIds.Add(ghostId);
-                int blockCount = PointDict[ghostId].Count;
-                Debug.Log("ghost chawdu! with " + blockCount + " blocks captured");
-                Destroy(ghost);
 
+            foreach(var ghost in stagemanager.ghostList) {
+
+                int ghostId = GridId[ghost.x, ghost.y];
+                if (ghostId == playerId) withGhost = true;
+                else {
+                    solvedIds.Add(ghostId);
+                    int blockCount = PointDict[ghostId].Count;
+                    Debug.Log("ghost chawdu! with " + blockCount + " blocks captured");
+                    int score = 100 + ((1 - blockCount) * 8);
+                    if (score < 10) score = 10;
+                    MainStageManager.score += score;
+                    Destroy(ghost);
+                }
             }
+
+            // player win
+
+            if (!withGhost) {
+                int blockCount = PointDict[playerId].Count;
+                // do player win action
+                Debug.Log("player win! with " + blockCount + " blocks captured");
+                stagemanager.PlayerWin();
+            }
+
         }
-
-        // player win
-
-        if (!withGhost && playerId!=-1) {
-            int blockCount = PointDict[playerId].Count;
-            // do player win action
-            Debug.Log("player win! with " + blockCount + " blocks captured");
-        }
-
         // do per block update
 
         foreach(var i in solvedIds) {

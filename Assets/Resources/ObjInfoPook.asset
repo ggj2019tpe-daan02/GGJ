@@ -16,9 +16,24 @@ MonoBehaviour:
     Gridnum: 0
     Walkable: 0
     Buildable: 0
-    GridSprite: {fileID: 21300000, guid: 6cf155676dbd0e446938e9115a513930, type: 3}
+    GridSprite: {fileID: 21300000, guid: 9b6b31de37aa56b43a562e0ec3374b6d, type: 3}
   - Gridname: Lego
     Gridnum: 0
     Walkable: 1
     Buildable: 0
     GridSprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  - Gridname: Block
+    Gridnum: 0
+    Walkable: 0
+    Buildable: 0
+    GridSprite: {fileID: 21300000, guid: a5cad11fa1f10e24594a6b1f0a36e638, type: 3}
+  - Gridname: Block
+    Gridnum: 0
+    Walkable: 0
+    Buildable: 0
+    GridSprite: {fileID: 21300000, guid: 6a9cbcde66c728243abcfb7fe98f30ac, type: 3}
+  - Gridname: Block
+    Gridnum: 0
+    Walkable: 0
+    Buildable: 0
+    GridSprite: {fileID: 21300000, guid: 44aff6964f19bda4ebd4df088c81040e, type: 3}

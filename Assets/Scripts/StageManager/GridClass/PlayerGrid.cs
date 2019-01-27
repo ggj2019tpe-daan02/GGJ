@@ -6,18 +6,25 @@ using DG.Tweening;
 public class PlayerGrid : MonoBehaviour {
 
     public int x = 0, y = 0;
+    int way = 0;
     public MainStageManager stageManager;
     Vector3 startPosition;
 
     public static int LegoNum = 3;
     int testCooldown = 0;
 
+    [Header("AnimationSprite")]
+    [SerializeField] Sprite[] IdleSprites;
+    [SerializeField] Sprite[] WalkSprites;
+    SpriteRenderer s;
+
     int h;
     int v;
     // Use this for initialization
     void Start () {
         startPosition = GlobalPool.globalPool.startPosition;
-
+        s = GetComponent<SpriteRenderer>();
+        LegoNum = 3;
     }
 	
 	// Update is called once per frame
@@ -35,6 +42,7 @@ public class PlayerGrid : MonoBehaviour {
             testCooldown++;
         }
 
+        AnimationUpdate();
         PutBlock();
     }
 
@@ -58,13 +66,30 @@ public class PlayerGrid : MonoBehaviour {
         {
             v = 0;
         }
+
+        if (v > 0)
+        {
+            way = 0;
+        }
+        else if (v < 0)
+        {
+            way = 2;
+        }
+        if (h > 0)
+        {
+            way = 1;
+        }else if(h < 0)
+        {
+            way = 3;
+        }
     }
 
     void PutBlock()
     {
         if (LegoNum <= 0) return;
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButton("Jump"))
         {
+            Debug.Log("?");
             bool b = stageManager.IsBuildable(x, y);
             if (b)
             {
@@ -95,5 +120,10 @@ public class PlayerGrid : MonoBehaviour {
         }
 
         transform.DOMove(startPosition + new Vector3(x, y, -2), 0.25f);
+    }
+
+    void AnimationUpdate()
+    {
+        s.sprite = WalkSprites[(way * 2 + (int)(GlobalPool.globalPool.audio.time * 147 / 60 )% 2)];
     }
 }

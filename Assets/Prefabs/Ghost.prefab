@@ -58,6 +58,15 @@ MonoBehaviour:
   x: 0
   y: 0
   stageManager: {fileID: 0}
+  IdleSprites:
+  - {fileID: 21300000, guid: eeaa1b28453f3e241b9bd1cf846d5154, type: 3}
+  - {fileID: 21300000, guid: b5bd2c27ed3859f48b9450a7f9eaa1ad, type: 3}
+  - {fileID: 21300000, guid: d5dfc97548cb1ff4b8e9188c9cdd7038, type: 3}
+  - {fileID: 21300000, guid: 2aaeeea746dbf204f9db9a0a68a95365, type: 3}
+  - {fileID: 21300000, guid: da7e11be060652e45befc06e3fbe3539, type: 3}
+  - {fileID: 21300000, guid: 732efffc91647e943bdd6baff822af31, type: 3}
+  - {fileID: 21300000, guid: 57e574d0c66b0d643b6c945d2c79756b, type: 3}
+  - {fileID: 21300000, guid: a13011df322f21640a5ee8ec405ac061, type: 3}
 --- !u!212 &212386674130972410
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -94,7 +103,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ba3e9153b7699d042a702ca961b5ad51, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
